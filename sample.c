@@ -4,18 +4,6 @@
 #include <stdarg.h>
 #include "head.h"
 #define INPUT_SIZE 12
-//#define testing
-
-
-
-#ifdef testing
-void test(const char *format, ...) {
-    va_list args;
-    va_start(args, format);
-    vprintf(format, args);
-    va_end(args);
-}
-#endif
 
 // Define variables
 BYTE input[INPUT_SIZE] = {0x00, 0x01, 0x00, 0x02, 0x00, 0x06, 0x03, 0x06, 0x00, 0x02, 0x00, 0x03};
@@ -24,7 +12,6 @@ BYTE output[100]; // Assuming output array size is 100
 int increment; // Global declaration of increment variable
 
 void in_func(void);
-void test(const char *format, ...);
 
 typedef struct {
     WORD_VAL transaction_identifier;
@@ -53,16 +40,6 @@ int main() {
         output[9 + increment * 2] = Reg[parse.start_address.Val + increment]/0x100;   // High byte
         output[10 + increment * 2] = Reg[parse.start_address.Val + increment]%0x100; // Low byte
     }
-
-#ifdef testing
-    // Printing the output in string format
-    test("Output string: ");
-    for (increment = 4; increment < 9 + output[8]; increment++) {
-        test("%02X ", output[increment]);
-    }
-    test("\n");
-#endif
-   
     
     while(1)
     {
@@ -85,14 +62,4 @@ void in_func(void) {
     parse.start_address.v[0]            = input[9];
     parse.address_length.v[1]           = input[10];
     parse.address_length.v[0]           = input[11]; 
-
-#ifdef testing
-    test("Transaction Identifier: %04X\n", parse.transaction_identifier.Val);
-    test("Protocol Identifier: %04X\n", parse.protocol_identifier.Val);
-    test("Length: %04X\n", parse.length.Val);
-    test("Unit Identifier: %02X\n", parse.unit_identifier);
-    test("Function Code: %02X\n", parse.function_code);
-    test("Start Address: %04X\n", parse.start_address.Val);
-    test("Address Length: %04X\n", parse.address_length.Val);
-#endif
 }
