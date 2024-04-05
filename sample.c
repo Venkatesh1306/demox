@@ -27,7 +27,7 @@ Modbus parse;
 
 int main() {
     in_func(); // Call the function to parse input data into the structure
-    
+ if(parse.function_code == 0x03){ 
     // Assign values to output array based on parsed data
     output[6] = parse.unit_identifier;
     output[7] = parse.function_code;
@@ -40,13 +40,28 @@ int main() {
         output[9 + increment * 2] = Reg[parse.start_address.Val + increment]/0x100;   // High byte
         output[10 + increment * 2] = Reg[parse.start_address.Val + increment]%0x100; // Low byte
     }
+ } 
     
+ if(parse.function_code == 0x01){ 
+    // Assign values to output array based on parsed data
+    output[6] = parse.unit_identifier;
+    output[7] = parse.function_code;
+    output[8] = (BYTE)(parse.address_length.Val * 2);
+    output[4] = 0x00;
+    output[5] = 0x03 + output[8]; // Adjusted output[5] to output[4] to match the logic below
+    
+    // Generate output data from Reg array based on parsed start_address and address_length
+    for (increment = 0; increment <output[8]; increment++) {
+        output[9 + increment * 2] = Reg[parse.start_address.Val + increment]/0x100;   // High byte
+        output[10 + increment * 2] = Reg[parse.start_address.Val + increment]%0x100; // Low byte
+    }
+ }
     while(1)
     {
     //output[99] = 1;
     }
     
-    return 0;
+  
 }
 
 void in_func(void) {
