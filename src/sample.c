@@ -1,13 +1,13 @@
 #include "sample1.h"
 
-void in_func(void);
-void testingg (void);
+void in_func(const BYTE *input);
+void testingg(const BYTE*output,const BYTE*output1);
 
 
 
 int main() {
     
-    in_func(); // Call the function to parse input data into the structure
+    in_func(input); // Call the function to parse input data into the structure
    
  
   if(parse.function_code == READ_HOLDING_REGISTERS){ 
@@ -35,7 +35,7 @@ int main() {
     
  } 
     
-    testingg();
+    testingg(output,output1);
   while(1)
     {
     output[99] = 1;
@@ -44,7 +44,7 @@ int main() {
   
 }
 
-void in_func(void) {
+void in_func(const BYTE *input) {
     parse.transaction_identifier.v[1]   = input[0];
     parse.transaction_identifier.v[0]   = input[1];
     parse.protocol_identifier.v[1]      = input[2];
@@ -59,7 +59,7 @@ void in_func(void) {
     parse.address_length.v[0]           = input[11]; 
 }
 
-void testingg(void) {
+void testingg(const BYTE*output,const BYTE*output1) {
     test_res = 1; // Assuming the test will pass unless a mismatch is found
     for (increment = 0; increment < 26; increment++) {
         if (output[increment] != output1[increment]) {
