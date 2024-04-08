@@ -68,20 +68,20 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.text                        0x2ce               0x160           0x210  (528)
-.dinit                       0x42e                0xae           0x105  (261)
+.text                        0x2ce               0x380           0x540  (1344)
+.dinit                       0x64e                0xba           0x117  (279)
 
-                 Total "program" memory used (bytes):          0x44a  (1098) 2%
+                 Total "program" memory used (bytes):          0x78c  (1932) 3%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.data                        0x800                   0            0xee  (238)
-.bss                         0x8ee                   0            0x2a  (42)
+.data                        0x800                   0           0x102  (258)
+.bss                         0x902                   0            0x3e  (62)
 
-                 Total "data" memory used (bytes):          0x118  (280) 3%
+                 Total "data" memory used (bytes):          0x140  (320) 3%
 
 
 Dynamic Memory Usage
@@ -89,9 +89,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x918                              0x1ee8  (7912)
+stack                        0x940                              0x1ec0  (7872)
 
-                 Maximum dynamic memory (bytes):         0x1ee8  (7912)
+                 Maximum dynamic memory (bytes):         0x1ec0  (7872)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -101,20 +101,24 @@ External Symbols in Data Memory (by address):
                     0x0800                  _input
                     0x080c                  _Reg
                     0x08d4                  _output1
-                    0x08ee                  _parse
-                    0x08fa                  _output
-                    0x0914                  _increment
-                    0x0916                  _test_res
+                    0x08ee                  _Reg1
+                    0x0902                  _parse
+                    0x090e                  _output
+                    0x0928                  _increment
+                    0x092a                  _test_res
+                    0x092c                  _output2
 
 External Symbols in Data Memory (by name):
 
                     0x080c                  _Reg
-                    0x0914                  _increment
+                    0x08ee                  _Reg1
+                    0x0928                  _increment
                     0x0800                  _input
-                    0x08fa                  _output
+                    0x090e                  _output
                     0x08d4                  _output1
-                    0x08ee                  _parse
-                    0x0916                  _test_res
+                    0x092c                  _output2
+                    0x0902                  _parse
+                    0x092a                  _test_res
 
 External Symbols in Program Memory (by address):
 
@@ -124,8 +128,8 @@ External Symbols in Program Memory (by address):
                   0x000252                  __data_init
                   0x0002c8                  __DefaultInterrupt
                   0x0002ce                  _main
-                  0x000396                  _in_func
-                  0x0003fc                  _testingg
+                  0x00059c                  _in_func
+                  0x000616                  _testingg
 
 External Symbols in Program Memory (by name):
 
@@ -134,9 +138,9 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000396                  _in_func
+                  0x00059c                  _in_func
                   0x0002ce                  _main
-                  0x0003fc                  _testingg
+                  0x000616                  _testingg
 
 Memory Configuration
 
@@ -211,26 +215,26 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x52a
+.debug_info       0x000000        0x69e
  *(.debug_info)
- .debug_info      0x000000        0x52a build/default/debug/src/sample.o
+ .debug_info      0x000000        0x69e build/default/debug/src/sample.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x120
+.debug_abbrev     0x000000        0x16a
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x120 build/default/debug/src/sample.o
+ .debug_abbrev    0x000000        0x16a build/default/debug/src/sample.o
 
-.debug_line       0x000000         0x7b
+.debug_line       0x000000         0xa4
  *(.debug_line)
- .debug_line      0x000000         0x7b build/default/debug/src/sample.o
+ .debug_line      0x000000         0xa4 build/default/debug/src/sample.o
 
 .debug_frame      0x000000         0x62
  *(.debug_frame)
  .debug_frame     0x000000         0x62 build/default/debug/src/sample.o
 
-.debug_str        0x000000         0x13
+.debug_str        0x000000         0x22
  *(.debug_str)
- .debug_str       0x000000         0x13 build/default/debug/src/sample.o
+ .debug_str       0x000000         0x22 build/default/debug/src/sample.o
 
 .debug_loc
  *(.debug_loc)
@@ -239,10 +243,10 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x82
+                  0x000000         0x97
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x82 build/default/debug/src/sample.o
+                  0x000000         0x97 build/default/debug/src/sample.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -867,37 +871,39 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000018         0x3c
+                  0x000018         0x49
  .debug_pubtypes
-                  0x000018         0x3c build/default/debug/src/sample.o
+                  0x000018         0x49 build/default/debug/src/sample.o
 
 __c30_signature
-                  0x000054         0x12
+                  0x000061         0x12
  __c30_signature
-                  0x000054          0x6 build/default/debug/src/sample.o
+                  0x000061          0x6 build/default/debug/src/sample.o
  __c30_signature
-                  0x00005a          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x000067          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000060          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x00006d          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.data               0x0800         0xee
- .data              0x0800         0xee build/default/debug/src/sample.o
+.data               0x0800        0x102
+ .data              0x0800        0x102 build/default/debug/src/sample.o
                     0x0800                  _input
                     0x080c                  _Reg
                     0x08d4                  _output1
+                    0x08ee                  _Reg1
 
-.bss                0x08ee         0x2a
- .bss               0x08ee         0x2a build/default/debug/src/sample.o
-                    0x08ee                  _parse
-                    0x08fa                  _output
-                    0x0914                  _increment
-                    0x0916                  _test_res
+.bss                0x0902         0x3e
+ .bss               0x0902         0x3e build/default/debug/src/sample.o
+                    0x0902                  _parse
+                    0x090e                  _output
+                    0x0928                  _increment
+                    0x092a                  _test_res
+                    0x092c                  _output2
 
-.text             0x0002ce        0x160
- .text            0x0002ce        0x160 build/default/debug/src/sample.o
+.text             0x0002ce        0x380
+ .text            0x0002ce        0x380 build/default/debug/src/sample.o
                   0x0002ce                  _main
-                  0x000396                  _in_func
-                  0x0003fc                  _testingg
+                  0x00059c                  _in_func
+                  0x000616                  _testingg
 
-.dinit            0x00042e         0xae
- .dinit           0x00042e         0xae data_init
+.dinit            0x00064e         0xba
+ .dinit           0x00064e         0xba data_init

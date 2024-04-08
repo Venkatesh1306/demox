@@ -35,6 +35,34 @@ int main() {
     
  } 
     
+  if(parse.function_code == Read_Coil_Status) {
+        output[6]  = parse.unit_identifier;
+        output[7]  = parse.function_code;
+        int quotient1 = parse.address_length.Val / 8;
+        output[8] = quotient1 + 1;
+        for(increment = 0; increment < output[8]; increment++) {
+            if (((parse.address_length.Val % 8) <= 4) && ((parse.address_length.Val % 8) != 0)) {
+               
+                output2[increment].bits.b0 = Reg1[parse.start_address.Val + increment].bits.b7; 
+                output2[increment].bits.b1 = Reg1[parse.start_address.Val + increment].bits.b6; 
+                output2[increment].bits.b2 = Reg1[parse.start_address.Val + increment].bits.b5; 
+                output2[increment].bits.b3 = Reg1[parse.start_address.Val + increment].bits.b4;
+            } else if (((parse.address_length.Val % 8) > 4) || ((parse.address_length.Val % 8) == 0)) {    
+                
+                output2[increment].bits.b0 = Reg1[parse.start_address.Val + increment].bits.b0; 
+                output2[increment].bits.b1 = Reg1[parse.start_address.Val + increment].bits.b1; 
+                output2[increment].bits.b2 = Reg1[parse.start_address.Val + increment].bits.b2; 
+                output2[increment].bits.b3 = Reg1[parse.start_address.Val + increment].bits.b3; 
+                output2[increment].bits.b4 = Reg1[parse.start_address.Val + increment].bits.b4; 
+                output2[increment].bits.b5 = Reg1[parse.start_address.Val + increment].bits.b5; 
+                output2[increment].bits.b6 = Reg1[parse.start_address.Val + increment].bits.b6; 
+                output2[increment].bits.b7 = Reg1[parse.start_address.Val + increment].bits.b7;
+            }
+            output[9 + increment] = output2[increment].Val; 
+        }
+
+    }
+    
     testingg(output,output1);
   while(1)
     {
