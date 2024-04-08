@@ -1,22 +1,12 @@
 #include "sample1.h"
 
 void in_func(void);
+void testingg (void);
 
 
-typedef struct {
-    WORD_VAL transaction_identifier;
-    WORD_VAL protocol_identifier;
-    WORD_VAL length;
-    BYTE unit_identifier;
-    BYTE function_code;
-    WORD_VAL start_address;
-    WORD_VAL address_length;
-} Modbus;
-
-Modbus parse;
 
 int main() {
-
+    
     in_func(); // Call the function to parse input data into the structure
    
  
@@ -29,7 +19,7 @@ int main() {
     output[5] = 0x03 + output[8]; // Adjusted output[5] to output[4] to match the logic below
     
     // Generate output data from Reg array based on parsed start_address and address_length
-    for (increment = 0; increment <output[8]; increment++) {
+    for (increment = 0; increment <parse.address_length.Val; increment++) {
         output[9 + increment * 2] = Reg[parse.start_address.Val + increment]/0x100;   // High byte
         output[10 + increment * 2] = Reg[parse.start_address.Val + increment]%0x100; // Low byte
     }
@@ -44,6 +34,8 @@ int main() {
     output[11] = parse.address_length.v[0];
     
  } 
+    
+    testingg();
   while(1)
     {
     output[99] = 1;
@@ -67,3 +59,13 @@ void in_func(void) {
     parse.address_length.v[0]           = input[11]; 
 }
 
+void testingg (void){
+    for (increment=0;increment<26;increment++){
+    if(output[increment] != output1[increment]){
+        test_res = 0;
+    }
+    else{
+        test_res = 1;
+    }
+    }
+}
