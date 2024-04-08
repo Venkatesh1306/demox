@@ -59,13 +59,13 @@ void in_func(void) {
     parse.address_length.v[0]           = input[11]; 
 }
 
-void testingg (void){
-    for (increment=0;increment<26;increment++){
-    if(output[increment] != output1[increment]){
-        test_res = 0;
-    }
-    else{
-        test_res = 1;
-    }
+void testingg(void) {
+    test_res = 1; // Assuming the test will pass unless a mismatch is found
+    for (increment = 0; increment < 26; increment++) {
+        if (output[increment] != output1[increment]) {
+            test_res = 0; // Set to 0 if a mismatch is found
+            break; // Exit the loop since the test has failed
+        }
     }
 }
+
