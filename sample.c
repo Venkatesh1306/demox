@@ -1,21 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include "head.h"
-#define INPUT_SIZE 12
-
-#define Read_Coil_Status 0x01
-#define READ_HOLDING_REGISTERS 0x03
-#define WRITE_SINGLE_REGISTER 0x06
-
-// Define variables
-BYTE input[INPUT_SIZE] = {0x00, 0x01, 0x00, 0x02, 0x00, 0x06, 0x03, 0x06, 0x00, 0x06, 0x00, 0x03};
-WORD Reg[100] = {0x3A2B, 0x3c7e, 0x0065, 0x2217, 0x1123, 0x1321, 0x3A2B, 0x3c7e, 0x0065, 0x2217, 0x1123, 0x1321, 0x3A2B, 0x3c7e, 0x0065, 0x2217, 0x1123, 0x1321, 0x3A2B, 0x3c7e, 0x0065, 0x2217, 0x1123, 0x1321, 0x3A2B, 0x3c7e};
-BYTE output[100]; // Assuming output array size is 100
-int increment; // Global declaration of increment variable
+#include "sample1.h"
 
 void in_func(void);
+
 
 typedef struct {
     WORD_VAL transaction_identifier;
@@ -30,8 +16,9 @@ typedef struct {
 Modbus parse;
 
 int main() {
-    in_func(); // Call the function to parse input data into the structure
 
+    in_func(); // Call the function to parse input data into the structure
+   
  
   if(parse.function_code == READ_HOLDING_REGISTERS){ 
     // Assign values to output array based on parsed data
@@ -79,3 +66,4 @@ void in_func(void) {
     parse.address_length.v[1]           = input[10];
     parse.address_length.v[0]           = input[11]; 
 }
+
